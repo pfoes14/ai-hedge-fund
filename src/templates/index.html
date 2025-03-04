@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Hedge Fund</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <h1>AI Hedge Fund</h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" id="backtest-link"><i class="fas fa-history"></i> Backtest</a></li>
+                <li><a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <header>
+                <h2>Welcome to AI Hedge Fund</h2>
+                <div class="user-actions">
+                    <button id="run-model" class="primary-btn">Run Model</button>
+                </div>
+            </header>
+            
+            <div class="dashboard-widgets">
+                <div class="widget portfolio-summary">
+                    <h3>Portfolio Summary</h3>
+                    <div class="portfolio-value">
+                        <span>$</span><span id="portfolio-value">100,000.00</span>
+                    </div>
+                    <div class="portfolio-change up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span id="portfolio-change">0.00</span>%
+                    </div>
+                </div>
+                
+                <div class="widget quick-actions">
+                    <h3>Quick Actions</h3>
+                    <div class="action-buttons">
+                        <button id="add-tickers"><i class="fas fa-plus"></i> Add Tickers</button>
+                        <button id="run-backtest"><i class="fas fa-play"></i> Run Backtest</button>
+                        <button id="export-data"><i class="fas fa-download"></i> Export Data</button>
+                    </div>
+                </div>
+                
+                <div class="widget market-overview">
+                    <h3>Market Overview</h3>
+                    <div id="market-chart" class="chart-container">
+                        <!-- TradingView Widget will go here -->
+                        <div class="tradingview-widget-container">
+                            <div id="tradingview_widget"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="widget active-positions">
+                    <h3>Active Positions</h3>
+                    <div class="positions-list" id="positions-list">
+                        <!-- Positions will be populated dynamically -->
+                        <div class="no-positions">No active positions</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal for adding tickers -->
+    <div id="add-tickers-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Tickers</h2>
+            <div class="ticker-input">
+                <input type="text" id="ticker-input" placeholder="Enter ticker symbols (e.g., AAPL, MSFT, NVDA)">
+                <button id="add-ticker-btn">Add</button>
+            </div>
+            <div class="ticker-list" id="ticker-list">
+                <!-- Tickers will be populated here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for configuring backtest -->
+    <div id="backtest-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Configure Backtest</h2>
+            <form id="backtest-form">
+                <div class="form-group">
+                    <label for="backtest-tickers">Tickers:</label>
+                    <input type="text" id="backtest-tickers" required placeholder="AAPL,MSFT,NVDA">
+                </div>
+                <div class="form-group">
+                    <label for="backtest-start-date">Start Date:</label>
+                    <input type="date" id="backtest-start-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="backtest-end-date">End Date:</label>
+                    <input type="date" id="backtest-end-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="initial-capital">Initial Capital:</label>
+                    <input type="number" id="initial-capital" value="100000" required>
+                </div>
+                <div class="form-group">
+                    <label for="margin-requirement">Margin Requirement:</label>
+                    <input type="number" id="margin-requirement" value="0" min="0" max="1" step="0.1">
+                </div>
+                <div class="form-group">
+                    <label>Select Analysts:</label>
+                    <div id="analyst-checkboxes" class="checkbox-group">
+                        <!-- Analysts will be populated here -->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="model-select">LLM Model:</label>
+                    <select id="model-select">
+                        <!-- Models will be populated here -->
+                    </select>
+                </div>
+                <button type="submit" class="primary-btn">Run Backtest</button>
+            </form>
+        </div>
+    </div>
+    
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

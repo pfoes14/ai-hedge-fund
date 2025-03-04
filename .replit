@@ -1,8 +1,9 @@
+
 modules = ["python-3.12"]
-run = "--ticker AAPL,MSFT,NVDA"
+run = "python src/web_app.py"
 
 [nix]
 channel = "stable-24_05"
 
 [deployment]
-run = ["sh", "-c", "--ticker AAPL,MSFT,NVDA"]
+run = ["sh", "-c", "python src/web_app.py"]
